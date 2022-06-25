@@ -11,7 +11,8 @@ function App() {
   const [isEdit, setIsEdit] = useState(false)
   const [editId, setEditId] = useState()
   const [documents, setDocuments] = useState([])
-  const URL = "http://localhost:8000"
+  const URL = process.env.REACT_APP_url;
+  console.log(URL);
 
   const handleChange = e => {
     setUpdated(e.target.value)
@@ -108,13 +109,13 @@ function App() {
 
       <form onSubmit={handleSubmit}>
         <input type="text" name="name" placeholder="Title" onChange={(e) => handleChange(e)} value={updated} />
-        <button>{isEdit === true ? 'Edit Todo': 'Add Todo'}</button>
+        <button>{isEdit === true ? 'Edit Todo' : 'Add Todo'}</button>
       </form>
       <h1>All Todos</h1>
       {documents.map((doc, i) => {
         return <div key={i} className="todo">
           <p><b>Id</b>: {doc._id}</p>
-          <p className="title"><b>Title</b>: <span style={{color:'yellow'}}>{doc.title}</span></p>
+          <p className="title"><b>Title</b>: <span style={{ color: 'yellow' }}>{doc.title}</span></p>
           <div className="btn">
             <button onClick={() => { handleUpdate(doc) }}>Update</button><button onClick={() => { handleDelete(doc) }}>Delete</button>
           </div>
